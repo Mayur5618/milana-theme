@@ -1,0 +1,61 @@
+<div class="container" style="max-width: 1280px; margin: 40px auto; padding: 0 20px;">
+  <div style="text-align: center; margin-bottom: 40px;">
+    <h1 style="font-size: 36px; font-weight: 700; color: #111;">{{ collection.title | default: "All Collections" }}</h1>
+    {%- if collection.description != blank -%}
+      <div style="color: #777; max-width: 700px; margin: 10px auto 0;">{{ collection.description }}</div>
+    {%- endif -%}
+  </div>
+
+  {% paginate collection.products by section.settings.products_per_page %}
+    <div style="display: grid; grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr); gap: 30px;">
+      {%- for product in collection.products -%}
+        {% render 'product-card', product: product %}
+      {%- else -%}
+        <!-- Fallback cards -->
+        {%- for i in (1..8) -%}
+          <div class="product-card" style="border: 1px solid #f0f0f0; border-radius: 8px; overflow: hidden; background: #fff;">
+            <div style="background: #fafafa; padding: 40px; text-align: center;">
+              <img src="{{ 'p-1.png' | asset_url }}" alt="Sample" style="max-width: 100%; height: auto;">
+            </div>
+            <div style="padding: 16px;">
+              <h3 style="font-size: 15px; margin-bottom: 6px;"><a href="/products/attractive-swimsuit" style="color:#111; text-decoration:none;">Milana Resort Swimwear</a></h3>
+              <div style="font-weight: 700; color: #111;">$45.00</div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+      <div style="text-align: center; margin-top: 50px;">
+        {{ paginate | default_pagination }}
+      </div>
+    {%- endif -%}
+  {% endpaginate %}
+</div>
+
+{% schema %}
+{
+  "name": "Main Collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 8,
+      "max": 24,
+      "step": 4,
+      "default": 12,
+      "label": "Products per page"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4,
+      "label": "Grid columns"
+    }
+  ]
+}
+{% endschema %}

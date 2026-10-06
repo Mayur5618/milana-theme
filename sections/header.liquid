@@ -1,0 +1,68 @@
+<header class="site-header site-header--milana" style="background: #ffffff; border-bottom: 1px solid #f0f0f0; position: sticky; top: 0; z-index: 999;">
+  <div class="container" style="display: flex; align-items: center; justify-content: space-between; padding: 18px 20px;">
+    
+    <!-- Navigation Menu -->
+    <nav class="site-nav" role="navigation" style="display: flex; gap: 24px;">
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}" style="color: #111111; font-weight: 600; font-size: 14px; text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px;">
+          {{ link.title }}
+        </a>
+      {%- else -%}
+        <a href="/" style="color: #111; font-weight: 600; font-size: 14px; text-decoration: none;">HOME</a>
+        <a href="/collections/all" style="color: #111; font-weight: 600; font-size: 14px; text-decoration: none;">SHOP</a>
+        <a href="/collections/bikini" style="color: #111; font-weight: 600; font-size: 14px; text-decoration: none;">COLLECTIONS</a>
+        <a href="/blogs/news" style="color: #111; font-weight: 600; font-size: 14px; text-decoration: none;">BLOG</a>
+        <a href="/pages/contact" style="color: #111; font-weight: 600; font-size: 14px; text-decoration: none;">CONTACT</a>
+      {%- endfor -%}
+    </nav>
+
+    <!-- Logo -->
+    <div class="site-header__logo" style="text-align: center;">
+      <a href="/" style="text-decoration: none; display: inline-block;">
+        {%- if section.settings.logo != blank -%}
+          <img src="{{ section.settings.logo | image_url: width: 180 }}" alt="{{ shop.name }}" style="max-height: 45px; width: auto;">
+        {%- else -%}
+          <img src="{{ 'logo-black.png' | asset_url }}" alt="Milana" style="max-height: 38px; width: auto;" onerror="this.outerHTML='<h1 style=\'margin:0; font-size:24px; font-weight:700; color:#111;\'>Milana</h1>'">
+        {%- endif -%}
+      </a>
+    </div>
+
+    <!-- Header Actions (Search, Account, Wishlist, Cart) -->
+    <div class="site-header__icons" style="display: flex; align-items: center; gap: 18px;">
+      <a href="/search" style="color: #111; font-size: 20px; text-decoration: none;" title="Search">
+        <i class="rbb-icon-search-1"></i>
+      </a>
+      <a href="/account" style="color: #111; font-size: 20px; text-decoration: none;" title="My Account">
+        <i class="rbb-icon-human-user-1"></i>
+      </a>
+      <a href="/pages/page-wishlist" style="color: #111; font-size: 20px; text-decoration: none;" title="Wishlist">
+        <i class="rbb-icon-wishlist-1"></i>
+      </a>
+      <a href="/cart" style="color: #111; font-size: 20px; text-decoration: none; position: relative;" title="Cart">
+        <i class="rbb-icon-shopping-bag-1"></i>
+        <span class="cart-count-badge" style="position: absolute; top: -6px; right: -8px; background: #FF4747; color: #fff; font-size: 10px; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+          {{ cart.item_count }}
+        </span>
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

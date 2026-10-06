@@ -1,0 +1,483 @@
+/* ==========================================================================
+   Milana Offline Interactive UI & QuickView & Cart Drawer Styles
+   ========================================================================== */
+
+/* Quick View Modal Overlay */
+.milana-qv-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  padding: 20px;
+}
+
+.milana-qv-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.milana-qv-modal {
+  background: #ffffff;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transform: translateY(20px) scale(0.98);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 30px;
+}
+
+.milana-qv-overlay.active .milana-qv-modal {
+  transform: translateY(0) scale(1);
+}
+
+.milana-qv-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 36px;
+  height: 36px;
+  background: #f5f5f5;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.milana-qv-close:hover {
+  background: #000;
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.milana-qv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 30px;
+  align-items: center;
+}
+
+@media (max-width: 767px) {
+  .milana-qv-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.milana-qv-image-wrap {
+  position: relative;
+  background: #f9f9f9;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.milana-qv-image-wrap img {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
+
+.milana-qv-details h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #111;
+}
+
+.milana-qv-rating {
+  color: #f5a623;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.milana-qv-price {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.milana-qv-price .compare-price {
+  font-size: 16px;
+  color: #999;
+  text-decoration: line-through;
+  font-weight: 400;
+}
+
+.milana-qv-price .badge-sale {
+  background: #ff4d4f;
+  color: #fff;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.milana-qv-stock {
+  font-size: 13px;
+  color: #389e0d;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.milana-qv-swatches, .milana-qv-sizes {
+  margin-bottom: 15px;
+}
+
+.milana-qv-label {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #555;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.milana-qv-swatches .swatch-opt {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  outline: 1px solid #ddd;
+  transition: all 0.2s;
+}
+
+.milana-qv-swatches .swatch-opt.active,
+.milana-qv-swatches .swatch-opt:hover {
+  outline: 2px solid #000;
+  transform: scale(1.1);
+}
+
+.milana-qv-sizes .size-opt {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-right: 6px;
+  cursor: pointer;
+  background: #fff;
+  color: #333;
+  transition: all 0.2s;
+}
+
+.milana-qv-sizes .size-opt.active,
+.milana-qv-sizes .size-opt:hover {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.milana-qv-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.milana-qty-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.milana-qty-btn {
+  width: 36px;
+  height: 44px;
+  background: #f7f7f7;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.milana-qty-input {
+  width: 44px;
+  height: 44px;
+  border: none;
+  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.milana-btn-add-cart {
+  flex: 1;
+  height: 44px;
+  background: #111;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.milana-btn-add-cart:hover {
+  background: #333;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* ==========================================================================
+   Cart Drawer
+   ========================================================================== */
+.milana-cart-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 999998;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.milana-cart-drawer-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.milana-cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  background: #ffffff;
+  z-index: 999999;
+  box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.milana-cart-drawer.active {
+  right: 0;
+}
+
+.milana-cart-drawer-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.milana-cart-drawer-header h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.milana-cart-drawer-close {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+  color: #666;
+}
+
+.milana-cart-free-shipping {
+  background: #faf6ef;
+  padding: 12px 20px;
+  font-size: 13px;
+  border-bottom: 1px solid #f0e6d6;
+  text-align: center;
+}
+
+.milana-cart-free-shipping .bar {
+  height: 4px;
+  background: #e0d0ba;
+  border-radius: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.milana-cart-free-shipping .bar-fill {
+  height: 100%;
+  background: #5a0f1a;
+  width: 70%;
+  border-radius: 2px;
+}
+
+.milana-cart-drawer-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.milana-cart-item {
+  display: flex;
+  gap: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #f2f2f2;
+  align-items: center;
+}
+
+.milana-cart-item img {
+  width: 70px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #f9f9f9;
+}
+
+.milana-cart-item-info {
+  flex: 1;
+}
+
+.milana-cart-item-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #111;
+}
+
+.milana-cart-item-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: #5a0f1a;
+  margin-bottom: 8px;
+}
+
+.milana-cart-item-remove {
+  color: #999;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.milana-cart-item-remove:hover {
+  color: #ff4d4f;
+}
+
+.milana-cart-drawer-footer {
+  padding: 20px;
+  border-top: 1px solid #eee;
+  background: #fafafa;
+}
+
+.milana-cart-subtotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.milana-cart-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.milana-btn-cart-view {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #111;
+  color: #111;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.milana-btn-checkout {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  background: #111;
+  color: #fff;
+  border: 1px solid #111;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.milana-btn-checkout:hover {
+  background: #5a0f1a;
+  border-color: #5a0f1a;
+  color: #fff;
+}
+
+/* Toast Notifications */
+.milana-toast {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background: #111;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 9999999;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  transform: translateY(50px);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.milana-toast.active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Wishlist Heart Active */
+.btnProductWishlist.active svg,
+[data-icon-wishlist].active svg {
+  fill: #ff4d4f !important;
+  stroke: #ff4d4f !important;
+}

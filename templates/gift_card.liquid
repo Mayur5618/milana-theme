@@ -1,0 +1,17 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <title>{{ 'gift_cards.issued.title' | t: value: formatted_initial_value, shop: shop.name }}</title>
+  {{ 'css-novstyle.css' | asset_url | stylesheet_tag }}
+</head>
+<body>
+  <div style="max-width: 600px; margin: 50px auto; text-align: center; padding: 30px; border: 1px solid #eee; border-radius: 8px;">
+    <h2>{{ shop.name }} Gift Card</h2>
+    <div style="font-size: 32px; font-weight: 700; color: #111; margin: 20px 0;">{{ gift_card.initial_value | money }}</div>
+    <p>Card Code: <code>{{ gift_card.code | format_code }}</code></p>
+    <p>{{ 'gift_cards.issued.subtext' | t }}</p>
+  </div>
+</body>
+</html>

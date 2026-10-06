@@ -1,0 +1,41 @@
+<div class="container" style="max-width: 1000px; margin: 60px auto; padding: 0 20px;">
+  <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 30px; text-align: center;">Your Shopping Cart</h1>
+
+  <form action="/cart" method="post">
+    <div style="background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 30px; margin-bottom: 30px;">
+      {%- if cart.item_count > 0 -%}
+        {%- for item in cart.items -%}
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #eee;">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <img src="{{ item.image | image_url: width: 80 }}" alt="{{ item.title }}" style="width: 70px; height: 70px; object-fit: cover; border-radius: 4px;">
+              <div>
+                <h4 style="margin: 0; font-size: 16px;">{{ item.product.title }}</h4>
+                <div style="font-size: 13px; color: #777;">{{ item.variant.title }}</div>
+              </div>
+            </div>
+            <div style="font-weight: 600;">{{ item.final_line_price | money }}</div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div style="text-align: center; padding: 40px 0;">
+          <p style="font-size: 16px; color: #777;">Your cart is currently empty.</p>
+          <a href="/collections/all" class="btn" style="display: inline-block; background: #111; color: #fff; padding: 12px 28px; border-radius: 4px; text-decoration: none; margin-top: 15px;">Continue Shopping</a>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div style="display: flex; justify-content: flex-end; align-items: center; gap: 20px;">
+      <div style="font-size: 20px; font-weight: 700;">Subtotal: {{ cart.total_price | money }}</div>
+      <button type="submit" name="checkout" style="background: #FF4747; color: #fff; padding: 16px 40px; border: none; border-radius: 4px; font-weight: 700; font-size: 16px; cursor: pointer; text-transform: uppercase;">
+        Proceed to Checkout
+      </button>
+    </div>
+  </form>
+</div>
+
+{% schema %}
+{
+  "name": "Main Cart",
+  "settings": []
+}
+{% endschema %}

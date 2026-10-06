@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "hero_slider": {
+      "type": "hero-slider",
+      "settings": {
+        "subheading": "NEW COLLECTION",
+        "heading": "Elevate Your Summer With Effortless Coastal Style",
+        "button_label": "SHOP COLLECTION",
+        "button_link": "/collections/all"
+      }
+    },
+    "explore_collection": {
+      "type": "explore-collection",
+      "settings": {}
+    },
+    "announcement_ticker": {
+      "type": "announcement-ticker",
+      "settings": {}
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Trending Now",
+        "products_to_show": 8
+      }
+    }
+  },
+  "order": [
+    "hero_slider",
+    "explore_collection",
+    "announcement_ticker",
+    "featured_collection"
+  ]
+}

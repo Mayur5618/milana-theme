@@ -1,0 +1,35 @@
+<div class="container" style="max-width: 1200px; margin: 50px auto; padding: 0 20px;">
+  <h1 style="font-size: 36px; font-weight: 700; text-align: center; margin-bottom: 40px;">{{ blog.title | default: "Milana Editorial & Journal" }}</h1>
+  
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;">
+    {%- for article in blog.articles -%}
+      <article style="border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+        {%- if article.image -%}
+          <img src="{{ article.image | image_url: width: 600 }}" alt="{{ article.title }}" style="width: 100%; aspect-ratio: 16/9; object-fit: cover;">
+        {%- endif -%}
+        <div style="padding: 20px;">
+          <span style="font-size: 12px; color: #888; text-transform: uppercase;">{{ article.published_at | date: "%B %d, %Y" }}</span>
+          <h2 style="font-size: 18px; margin: 8px 0;"><a href="{{ article.url }}" style="color: #111; text-decoration: none;">{{ article.title }}</a></h2>
+          <p style="font-size: 14px; color: #666; line-height: 1.6;">{{ article.excerpt_or_content | strip_html | truncatewords: 25 }}</p>
+        </div>
+      </article>
+    {%- else -%}
+      <!-- Fallback article -->
+      <article style="border: 1px solid #eee; border-radius: 8px; overflow: hidden;">
+        <img src="{{ 'blog-1.jpg' | asset_url }}" alt="Blog Post" style="width: 100%; aspect-ratio: 16/9; object-fit: cover;" onerror="this.style.display='none'">
+        <div style="padding: 20px;">
+          <span style="font-size: 12px; color: #888; text-transform: uppercase;">Summer 2026</span>
+          <h2 style="font-size: 18px; margin: 8px 0;"><a href="/blogs/news/swimwear-trends-you-ll-love" style="color: #111; text-decoration: none;">Swimwear Trends You'll Love This Season</a></h2>
+          <p style="font-size: 14px; color: #666; line-height: 1.6;">Discover effortless swimwear silhouettes, high-waist cuts, and vibrant coastal prints...</p>
+        </div>
+      </article>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Main Blog",
+  "settings": []
+}
+{% endschema %}

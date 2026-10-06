@@ -1,0 +1,139 @@
+{% comment %}
+  Renders a product card for Milana theme
+  Accepts:
+  - product_card_product: {Object} Product Liquid object (optional)
+  - media_size: {String} Size of the product image card. Values are "square", "portrait", "adapt". Default is "portrait" (optional)
+  - show_secondary_image: {Boolean} Show the secondary image on hover. Default: true (optional)
+  - show_vendor: {Boolean} Show the product vendor. Default: false (optional)
+  - show_rating: {Boolean} Show the product rating. Default: true (optional)
+{% endcomment %}
+
+{%- liquid
+  assign product = product_card_product | default: product
+  assign featured_media = product.featured_media
+  assign second_image = product.media[1]
+  assign ratio = 1
+  if featured_media and media_size == 'portrait'
+    assign ratio = 0.8
+  elsif featured_media and media_size == 'adapt'
+    assign ratio = featured_media.aspect_ratio
+  endif
+  if ratio == 0 or ratio == null
+    assign ratio = 1
+  endif
+-%}
+
+<div class="item-product position-relative mb-30" data-product-id="{{ product.id }}">
+  <div class="thumbnail-container position-relative overflow_hidden">
+    <a href="{{ product.url }}" class="product-image d-block position-relative">
+      {%- if featured_media != blank -%}
+        <div class="image-primary position-relative">
+          <img
+            src="{{ featured_media | image_url: width: 600 }}"
+            alt="{{ featured_media.alt | escape | default: product.title }}"
+            class="img-fluid w-100 image-entity lazyload"
+            loading="lazy"
+            width="{{ featured_media.width }}"
+            height="{{ featured_media.height }}"
+          >
+        </div>
+        {%- if show_secondary_image and second_image != blank -%}
+          <div class="image-secondary position-absolute top-0 left-0 w-100 h-100">
+            <img
+              src="{{ second_image | image_url: width: 600 }}"
+              alt="{{ second_image.alt | escape | default: product.title }}"
+              class="img-fluid w-100 image-entity lazyload"
+              loading="lazy"
+              width="{{ second_image.width }}"
+              height="{{ second_image.height }}"
+            >
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg w-100' }}
+      {%- endif -%}
+    </a>
+
+    {%- comment -%} Badges {%- endcomment -%}
+    <div class="badge-list position-absolute top-10 left-10">
+      {%- if product.compare_at_price > product.price -%}
+        {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+        <span class="badge badge-sale bg-danger text-white font-weight-bold px-2 py-1">-{{ discount }}%</span>
+      {%- endif -%}
+      {%- if product.tags contains 'new' or product.tags contains 'New' -%}
+        <span class="badge badge-new bg-dark text-white font-weight-bold px-2 py-1 ml-1">NEW</span>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Quick Actions {%- endcomment -%}
+    <div class="group-buttons position-absolute d-flex flex-column">
+      {%- if settings.enable_wishlist -%}
+        <button type="button" class="btn-wishlist btn-action" data-product-handle="{{ product.handle }}" aria-label="Add to wishlist">
+          <i class="zmdi zmdi-favorite-outline"></i>
+        </button>
+      {%- endif -%}
+      <button type="button" class="btn-quickview btn-action" data-product-url="{{ product.url }}" aria-label="Quick view">
+        <i class="zmdi zmdi-eye"></i>
+      </button>
+    </div>
+
+    {%- comment -%} Quick Add {%- endcomment -%}
+    <div class="product-button-action position-absolute bottom-0 w-100 p-2">
+      {%- if product.available -%}
+        {%- if product.variants.size == 1 -%}
+          <form method="post" action="/cart/add" class="form-add-to-cart">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            <button type="submit" name="add" class="btn btn-primary btn-block btn-add-to-cart py-2">
+              <span>{{ 'products.product.add_to_cart' | t | default: 'Add to Cart' }}</span>
+            </button>
+          </form>
+        {%- else -%}
+          <a href="{{ product.url }}" class="btn btn-primary btn-block py-2">
+            <span>{{ 'products.product.select_options' | t | default: 'Select Options' }}</span>
+          </a>
+        {%- endif -%}
+      {%- else -%}
+        <button type="button" class="btn btn-secondary btn-block py-2 disabled" disabled>
+          <span>{{ 'products.product.sold_out' | t | default: 'Sold Out' }}</span>
+        </button>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="product-info pt-3 text-left">
+    {%- if show_vendor and product.vendor != blank -%}
+      <div class="product-vendor text-muted text-uppercase small mb-1">{{ product.vendor }}</div>
+    {%- endif -%}
+
+    <h3 class="product-title font-size-15 font-weight-500 mb-1">
+      <a href="{{ product.url }}" class="text-dark hover-color-primary">{{ product.title }}</a>
+    </h3>
+
+    <div class="price-box font-weight-600">
+      {%- if product.compare_at_price > product.price -%}
+        <span class="price-regular text-danger font-size-16 mr-2">{{ product.price | money }}</span>
+        <span class="price-compare text-muted text-decoration-line-through font-size-14">{{ product.compare_at_price | money }}</span>
+      {%- else -%}
+        <span class="price-regular text-dark font-size-16">
+          {%- if product.price_varies -%}
+            {{ 'products.product.from_lowest_price_html' | t: lowest_price: (product.price | money) | default: product.price | money }}
+          {%- else -%}
+            {{ product.price | money }}
+          {%- endif -%}
+        </span>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Color Swatches if available {%- endcomment -%}
+    {%- for option in product.options_with_values -%}
+      {%- assign option_name = option.name | downcase -%}
+      {%- if option_name == 'color' or option_name == 'colour' -%}
+        <div class="product-swatches d-flex flex-wrap gap-1 mt-2">
+          {%- for value in option.values -%}
+            <span class="swatch-item rounded-circle border" style="background-color: {{ value | downcase }}; width: 14px; height: 14px; display: inline-block;" title="{{ value }}"></span>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>

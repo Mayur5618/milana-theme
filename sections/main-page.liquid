@@ -1,0 +1,13 @@
+<div class="container" style="max-width: 900px; margin: 50px auto; padding: 0 20px;">
+  <h1 style="font-size: 34px; font-weight: 700; color: #111; margin-bottom: 24px; text-align: center;">{{ page.title | default: "Milana Story" }}</h1>
+  <div style="font-size: 16px; line-height: 1.8; color: #444;">
+    {{ page.content | default: "<p>Welcome to Milana. We are an elevated resort and swimwear brand dedicated to timeless summer silhouettes, premium fabrics, and sustainable luxury.</p>" }}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Main Page",
+  "settings": []
+}
+{% endschema %}

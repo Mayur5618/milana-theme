@@ -1,0 +1,45 @@
+{% comment %}
+  Renders pagination for collections and search
+  Accepts:
+  - paginate: {Object} Paginate Liquid object
+  - anchor: {String} Anchor ID (optional)
+{% endcomment %}
+{%- if paginate.parts.size > 0 -%}
+  <nav class="pagination-wrapper text-center my-4" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+    <ul class="pagination d-inline-flex list-unstyled gap-2 align-items-center justify-content-center">
+      {%- if paginate.previous -%}
+        <li class="page-item">
+          <a href="{{ paginate.previous.url }}{{ anchor }}" class="page-link btn btn-outline-dark px-3 py-2" aria-label="{{ 'general.pagination.previous' | t }}">
+            <i class="zmdi zmdi-chevron-left"></i>
+          </a>
+        </li>
+      {%- endif -%}
+
+      {%- for part in paginate.parts -%}
+        <li class="page-item {% if part.is_link == false and part.title == paginate.current_page %}active{% endif %}">
+          {%- if part.is_link -%}
+            <a href="{{ part.url }}{{ anchor }}" class="page-link btn btn-outline-secondary px-3 py-2" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
+              {{ part.title }}
+            </a>
+          {%- else -%}
+            {%- if part.title == paginate.current_page -%}
+              <span class="page-link btn btn-primary px-3 py-2" aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
+                {{ part.title }}
+              </span>
+            {%- else -%}
+              <span class="page-link px-2">{{ part.title }}</span>
+            {%- endif -%}
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+
+      {%- if paginate.next -%}
+        <li class="page-item">
+          <a href="{{ paginate.next.url }}{{ anchor }}" class="page-link btn btn-outline-dark px-3 py-2" aria-label="{{ 'general.pagination.next' | t }}">
+            <i class="zmdi zmdi-chevron-right"></i>
+          </a>
+        </li>
+      {%- endif -%}
+    </ul>
+  </nav>
+{%- endif -%}

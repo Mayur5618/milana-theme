@@ -1,0 +1,47 @@
+<div class="container" style="max-width: 1240px; margin: 50px auto; padding: 0 20px;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start;">
+    <!-- Gallery -->
+    <div class="product-gallery">
+      {%- if product.featured_image != blank -%}
+        <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title | escape }}" style="width: 100%; border-radius: 8px;">
+      {%- else -%}
+        <img src="{{ 'bk141.jpg' | asset_url }}" alt="Product Image" style="width: 100%; border-radius: 8px;">
+      {%- endif -%}
+    </div>
+
+    <!-- Product Info -->
+    <div class="product-info">
+      <h1 style="font-size: 32px; font-weight: 700; color: #111; margin-bottom: 12px;">{{ product.title | default: "Lascana Bikini Set" }}</h1>
+      
+      <div style="font-size: 24px; font-weight: 700; color: #FF4747; margin-bottom: 20px;">
+        {{ product.price | default: 4500 | money }}
+      </div>
+
+      <div class="product-description" style="font-size: 15px; color: #555; line-height: 1.7; margin-bottom: 24px;">
+        {{ product.description | default: "High-quality summer wear designed with sustainable recycled fabrics, quick-drying technology, and double-lined support." }}
+      </div>
+
+      {% form 'product', product %}
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        
+        <div style="display: flex; gap: 14px; margin-bottom: 24px;">
+          <input type="number" name="quantity" value="1" min="1" style="width: 70px; height: 50px; text-align: center; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;">
+          <button type="submit" name="add" style="flex: 1; height: 50px; background: #111; color: #fff; border: none; border-radius: 4px; font-weight: 700; cursor: pointer; text-transform: uppercase;">
+            Add to Cart
+          </button>
+        </div>
+
+        <button type="button" onclick="window.location.href='/checkout'" style="width: 100%; height: 50px; background: #FF4747; color: #fff; border: none; border-radius: 4px; font-weight: 700; cursor: pointer; text-transform: uppercase; margin-bottom: 20px;">
+          Buy It Now
+        </button>
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,54 @@
+<section class="hero-slider-section hero-slider--homepage-3" style="position: relative; overflow: hidden;">
+  <div class="hero-slide" style="position: relative; min-height: 680px; display: flex; align-items: center; justify-content: center; text-align: center; background: #e8ecf0; background-image: url({{ 'slider-1.jpg' | asset_url }}); background-size: cover; background-position: center;">
+    <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.18);"></div>
+    <div class="container" style="position: relative; z-index: 2; padding: 60px 20px; max-width: 800px; margin: 0 auto;">
+      <span style="display: block; text-transform: uppercase; font-size: 13px; letter-spacing: 3px; color: #ffffff; font-weight: 700; margin-bottom: 16px;">
+        {{ section.settings.subheading | default: "NEW COLLECTION" }}
+      </span>
+      <h1 style="font-size: 58px; line-height: 1.15; font-weight: 800; color: #ffffff; margin-bottom: 24px; text-shadow: 0 2px 10px rgba(0,0,0,0.15);">
+        {{ section.settings.heading | default: "Elevate Your Summer With Effortless Coastal Style" }}
+      </h1>
+      <div style="margin-top: 30px;">
+        <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="btn" style="display: inline-block; background: #ffffff; color: #111111; padding: 16px 40px; border-radius: 4px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: all 0.25s;">
+          {{ section.settings.button_label | default: "SHOP COLLECTION" }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "NEW COLLECTION"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Elevate Your Summer With Effortless Coastal Style"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "SHOP COLLECTION"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Slider (Homepage 3)"
+    }
+  ]
+}
+{% endschema %}

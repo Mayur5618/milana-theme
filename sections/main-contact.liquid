@@ -1,0 +1,34 @@
+<div class="container" style="max-width: 800px; margin: 50px auto; padding: 0 20px;">
+  <h1 style="font-size: 34px; font-weight: 700; text-align: center; margin-bottom: 12px;">Contact Us</h1>
+  <p style="text-align: center; color: #777; margin-bottom: 40px;">Have questions regarding orders, sizing, or styling? We'd love to hear from you.</p>
+
+  {% form 'contact' %}
+    {{ form.errors | default_errors }}
+    {% if form.posted_successfully? %}
+      <div style="padding: 15px; background: #e8f5e9; color: #2e7d32; border-radius: 4px; margin-bottom: 20px;">
+        Thanks for contacting us! We'll get back to you within 24 hours.
+      </div>
+    {% endif %}
+
+    <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+      <input type="text" name="contact[name]" placeholder="Your Name" required style="flex: 1; height: 48px; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+      <input type="email" name="contact[email]" placeholder="Your Email" required style="flex: 1; height: 48px; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+    </div>
+    <div style="margin-bottom: 15px;">
+      <input type="text" name="contact[phone]" placeholder="Phone Number" style="width: 100%; height: 48px; padding: 12px; border: 1px solid #ddd; border-radius: 4px;">
+    </div>
+    <div style="margin-bottom: 20px;">
+      <textarea name="contact[body]" placeholder="Your Message" rows="6" required style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit;"></textarea>
+    </div>
+    <button type="submit" style="background: #111; color: #fff; padding: 14px 36px; border: none; border-radius: 4px; font-weight: 700; cursor: pointer; text-transform: uppercase;">
+      Send Message
+    </button>
+  {% endform %}
+</div>
+
+{% schema %}
+{
+  "name": "Main Contact",
+  "settings": []
+}
+{% endschema %}

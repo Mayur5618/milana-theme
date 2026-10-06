@@ -1,0 +1,34 @@
+<div class="container" style="max-width: 1200px; margin: 50px auto; padding: 0 20px;">
+  <h1 style="font-size: 32px; font-weight: 700; text-align: center; margin-bottom: 30px;">Search Results</h1>
+  
+  <form action="/search" method="get" style="max-width: 600px; margin: 0 auto 50px; display: flex;">
+    <input type="text" name="q" value="{{ search.terms | escape }}" placeholder="Search products, collections, articles..." style="flex: 1; height: 50px; padding: 12px 18px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; font-size: 15px;">
+    <button type="submit" style="background: #111; color: #fff; padding: 0 28px; border: none; border-radius: 0 4px 4px 0; font-weight: 700; cursor: pointer;">SEARCH</button>
+  </form>
+
+  {%- if search.performed -%}
+    {%- if search.results_count > 0 -%}
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px;">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            {% render 'product-card', product: item %}
+          {%- else -%}
+            <div style="border: 1px solid #eee; padding: 20px; border-radius: 8px;">
+              <h3><a href="{{ item.url }}" style="color: #111;">{{ item.title }}</a></h3>
+              <p>{{ item.content | strip_html | truncatewords: 20 }}</p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p style="text-align: center; color: #777; font-size: 16px;">No results found for "{{ search.terms }}". Try checking your spelling or using more general terms.</p>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Main Search",
+  "settings": []
+}
+{% endschema %}

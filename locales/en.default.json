@@ -155,6 +155,12 @@
       "to": "To"
     }
   },
+  "gift_cards": {
+    "issued": {
+      "title": "{{ value }} gift card from {{ shop }}",
+      "subtext": "Use the code below at checkout to redeem your gift card."
+    }
+  },
   "templates": {
     "search": {
       "no_results": "No results found for \"{{ terms }}\". Check the spelling or use a different word or phrase.",

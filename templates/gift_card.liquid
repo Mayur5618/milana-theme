@@ -3,6 +3,7 @@
 <html lang="{{ request.locale.iso_code }}">
 <head>
   <meta charset="utf-8">
+  {%- assign formatted_initial_value = gift_card.initial_value | money -%}
   <title>{{ 'gift_cards.issued.title' | t: value: formatted_initial_value, shop: shop.name }}</title>
   {{ 'css-novstyle.css' | asset_url | stylesheet_tag }}
 </head>

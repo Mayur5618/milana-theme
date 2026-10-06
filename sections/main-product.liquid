@@ -3,9 +3,9 @@
     <!-- Gallery -->
     <div class="product-gallery">
       {%- if product.featured_image != blank -%}
-        <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title | escape }}" style="width: 100%; border-radius: 8px;">
+        <img src="{{ product.featured_image | image_url: width: 800 }}" alt="{{ product.title | escape }}" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" style="width: 100%; border-radius: 8px;">
       {%- else -%}
-        <img src="{{ 'bk141.jpg' | asset_url }}" alt="Product Image" style="width: 100%; border-radius: 8px;">
+        <img src="{{ 'bk141.jpg' | asset_url }}" alt="Product Image" width="1100" height="1287" style="width: 100%; border-radius: 8px;">
       {%- endif -%}
     </div>
 

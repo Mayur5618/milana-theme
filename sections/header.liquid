@@ -20,9 +20,9 @@
     <div class="site-header__logo" style="text-align: center;">
       <a href="/" style="text-decoration: none; display: inline-block;">
         {%- if section.settings.logo != blank -%}
-          <img src="{{ section.settings.logo | image_url: width: 180 }}" alt="{{ shop.name }}" style="max-height: 45px; width: auto;">
+          <img src="{{ section.settings.logo | image_url: width: 180 }}" alt="{{ shop.name | escape }}" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" style="max-height: 45px; width: auto;">
         {%- else -%}
-          <img src="{{ 'logo-black.png' | asset_url }}" alt="Milana" style="max-height: 38px; width: auto;" onerror="this.outerHTML='<h1 style=\'margin:0; font-size:24px; font-weight:700; color:#111;\'>Milana</h1>'">
+          <img src="{{ 'logo-black.png' | asset_url }}" alt="Milana" width="240" height="50" style="max-height: 38px; width: auto;">
         {%- endif -%}
       </a>
     </div>

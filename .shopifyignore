@@ -1,0 +1,9 @@
+.git/
+.github/
+.idea/
+.vercel/
+.env
+.env.*
+shopify-upload-test/
+shopify-upload-test.zip
+*.zip
